@@ -1,12 +1,12 @@
 package bridgeLabz.Java.Practice;
 
-import bridgeLabz.Java.Practice.LinkedList_UC7.Node;
-
 public class LinkedList_UC8 { 
 	
-	class Node{
+	public class Node{
 		int info;
 		Node next;
+		public int data;
+		public Node nextNode;
 		public Node(int info) {
 			this.info = info;
 		}
@@ -14,6 +14,7 @@ public class LinkedList_UC8 {
 			// TODO Auto-generated constructor stub
 		}
 	}
+
 	public Node head = null;
 	public Node tail = null;
 
@@ -30,12 +31,33 @@ public class LinkedList_UC8 {
 		System.out.println(objnode.info);
 	}
 		
-	 public void insertNode(int newElement, int position) {     
-		    Node newNode = new Node(newElement); 
-		    newNode.info = newElement;
-		    newNode.next = null;
-		    System.out.println(newNode.info);
-	 }
+	 public void insertNth(int info, int position) {
+	        //create new node.
+	        Node node = new Node();
+	        node.info = info;
+	       Node temp=this.head;
+	       
+	       if(position==1)
+	       {
+	    	   this.head=node;
+	    	   node.next=temp;
+	       }
+	       else
+	       {
+	       int ctr=1;
+	       while(ctr<position-1) {
+		        temp = temp.next;
+		        ctr++;
+	       }
+	       
+	       Node nextNode=new Node();
+	       nextNode=temp.next;
+	       temp.next=node;
+	       node.next=nextNode;
+		     
+	       }
+    }
+
 	 void deleteLast() {
 		  if(this.head != null) {
 		    
@@ -63,7 +85,7 @@ public class LinkedList_UC8 {
 		}
 		 	
 	//searchNode() will search for a given node in the list  
-	    public void searchNode(int info) {  
+	    public Node searchNode(int info) {  
 	        Node current = head;  
 	        int i = 1;  
 	        boolean flag = false;  
@@ -86,42 +108,40 @@ public class LinkedList_UC8 {
 	             System.out.println("Element is present in the list at the position : " + i);  
 	        else  
 	             System.out.println("Element is not present in the list");  
+	        
+	        return current;
 	    }  
 	  
 	 //display the content of the list
-	   void PrintList() {
-	     Node temp = new Node();
-	     temp = this.head;
-	     if(temp != null) {
-	       System.out.print("The list contains: ");
-	       while(temp != null) {
-	         System.out.print(temp.info + " ");
-	         temp = temp.next;
+	    void PrintList() {
+	    Node temp = new Node();
+	    temp = this.head;
+	     	if(temp != null) {
+	     	System.out.print("The list contains: ");
+	     	while(temp != null) {
+	        System.out.print(temp.info + " ");
+	        temp = temp.next;
 	       }
 	       System.out.println();
 	     } else {
 	       System.out.println("The list is empty.");
 	     }
-	   }   
-	
+	   } 
+	    
+	  
   public static void main(String[] args) { 
     LinkedList_UC8 list = new LinkedList_UC8 ();
     System.out.println("List of Elements:");
     list.addNode(56);
     list.addNode(30);
-    list.insertNode(40, 3);
     list.addNode(70);
-//    System.out.println("Before Deletion:");
-//    list.PrintList();
-//    list.deleteLast();
-//    System.out.println("After Deletion:");
-//    list.PrintList();
-//    System.out.println("Searching Element 30 !");
-//    list.searchNode(30);
-    
-    
+    System.out.println("Before Insertion:");
+    list.PrintList();
+    System.out.println("After Insertion:");
+    list.insertNth(40,3);
+    list.PrintList(); 
    }
 
+	}
 
 
-}
